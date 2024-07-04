@@ -4,7 +4,7 @@
       All Posts
     </div>
     <div >
-      Most Reader
+      Most Readed
     </div>
     <div>
       Most Liked
@@ -35,7 +35,13 @@
     </div>
     <div class="share" v-show="shar">
       <ion-icon name="arrow-redo-outline"></ion-icon>
-    <input type="submit" value="Share Post">
+      <input type="submit" value="Share Post">
+    </div>
+    <h1>  {{title}}    </h1>
+    <p>{{introduction}}</p>
+    <div key="aa" class="footer">
+      <hr>
+    <p>{{views}} views</p> <p>{{comment}} comments</p><p>{{likes}} <ion-icon name="heart-outline"></ion-icon></p> 
     </div>
   </article>
   </section>
@@ -56,7 +62,12 @@ export default {
         username:"khalid kidarine",
         profile1,
         currentdate,
-        currenttime
+        currenttime,
+        title:'Exploring the Multilayered Surface Finishing of Futuristic "Obsidian" Rocks',
+        introduction:'Take an up-close look at the surface finishing of the futuristic "Obsidian," achieved through multiple layers of paint with varying...',
+        views:200,
+        comment:20,
+        likes:34
     }
   },
    methods: {
@@ -128,6 +139,9 @@ input[type=text]{
 }
 .content{
   width: 50%;
+  padding-left: 25px;
+  padding-top: 10px;
+  position: relative;
 }
 .info{
   display: flex;
@@ -147,12 +161,37 @@ input[type=text]{
   margin-top:-10px ;
 }
 .share{
-  width: 60%;
+  width: 35%;
   height: 40px;
-  background-color: aqua;
-  margin-left:100px ;
+  margin-left:200px ;
   border: 2px solid white;
   box-shadow: 2px 2px 10px black;
-  padding-top:6px ;
 }
+.share input{
+  font-size: 18px;
+  background-color: #fff;
+  border: none;
+  margin-right: 7px;
+  cursor: pointer;
+  }
+.share input:hover{
+    color: rgb(23, 179, 153);
+
+}  
+.share ion-icon{
+  font-size: 30px;
+  margin-bottom: -5px;
+  margin-left: 2px;
+}
+.footer{
+  background-color: aqua;
+  margin-bottom: 5px;
+  width: 80%;
+  height: 10%;
+  position:absolute;
+  bottom: 10px;
+  left: 20px;
+}
+
+
 </style>

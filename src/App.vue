@@ -5,7 +5,7 @@
   <router-link to="store">Store</router-link>
   <router-link to="blog">Blog</router-link>
   <router-link to="/login">Log In</router-link>
-  <router-link to="/signup">Sing up</router-link>
+  <router-link to="/signup">Sign up</router-link>
   <router-link to="/contact"> Contact </router-link>
 </div>
   <hr>
