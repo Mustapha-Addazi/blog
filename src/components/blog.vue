@@ -20,29 +20,29 @@
     </div>
   </div>
   </form>
-  <section class="unified-container">
-  <img :src="article1" alt="article1"  width="50%" height="100%" /> 
+  <section v-for="(article,index) in articles" :key="index" class="unified-container">
+  <img :src="article2" alt="article"  width="50%" height="100%" /> 
   <article class="content">
     <div class="info">
     <div class="profile">
-    <img :src="profile1" alt="profile"/>
+    <img :src="profile" alt="profile"/>
     </div>
     <div class="info1">
-    <p class="name">{{ username }}</p><span id="dots" @click="share"><ion-icon name="ellipsis-vertical"></ion-icon></span>
-    <p class="date" >{{ currentdate }} . {{currenttime}}</p> 
+    <p class="name">{{ article.username }}</p><span id="dots" @click="share(index)"><ion-icon name="ellipsis-vertical"></ion-icon></span>
+    <p class="date" >{{ article.currentdate }} . {{article.timeread}} </p> 
     </div>
     </div>
-    <div class="share" v-show="shar">
+    <div class="share" v-show="article.shar">
       <ion-icon name="arrow-redo-outline"></ion-icon>
       <input type="submit" value="Share Post">
     </div>
-    <h1 class="title">  {{title}}    </h1>
-    <p class="introduction">{{introduction}}</p>
+    <h1 class="title">  {{article.title}}    </h1>
+    <p class="introduction">{{article.introduction}}</p>
 
     <div class="footer">
       <hr>
       <div class="interaction">
-    <p>{{views}} views</p> <p>{{comment}} comments</p><p>{{likes}} <ion-icon @click="like" v-show="liked" name="heart-outline"></ion-icon><ion-icon @click="like" v-show ="!liked" name="heart"></ion-icon></p> 
+    <p>{{article.views}} views</p> <p>{{article.comment}} comments</p><p>{{article.likes}} <ion-icon @click="like(index)" v-show="article.liked" name="heart-outline"></ion-icon><ion-icon @click="like(index)" v-show ="!article.liked" name="heart"></ion-icon></p> 
       </div>
     </div>
   </article>
@@ -51,43 +51,113 @@
 
 <script>
 import article1 from '@/assets/article1.webp';
-import profile1 from '@/assets/profile1.jpg'
+import profile from '@/assets/profile1.jpg';
+import article2 from '@/assets/article2.jpg';
 export default {
   data() {
     const now = new Date();
     const currentdate= now.toLocaleDateString();
-    const currenttime= now.toLocaleTimeString();
-    return {
-        oui:false,
+  return {
+    oui:false,
+    isHovered:false,
+    profile,
+    article1,
+    article2,
+    articles: [
+      { 
         shar:false,
-        isHovered:false,
-        article1,
-        username:"khalid kidarine",
-        profile1,
+        liked:false,
+        username: "khalid kidarine",
         currentdate,
-        currenttime,
-        title:'Exploring the Multilayered Surface Finishing of Futuristic "Obsidian" Rocks',
-        introduction:'Take an up-close look at the surface finishing of the futuristic "Obsidian," achieved through multiple layers of paint with varying...',
-        views:200,
-        comment:20,
-        likes:34,
-        liked:false
-    }
-  },
+        timeread: "1 min",
+        title: 'Exploring the Multilayered Surface Finishing of Futuristic "Obsidian" RocksExploring the Multilayered Surface Finishing of Futuristic "Obsidian" Rocks',
+        introduction: 'Take an up-close look at the surface finishing of the futuristic "Obsidian," achieved through multiple layers of paint with varying...',
+        views: 200,
+        comment: 20,
+        likes: 34
+      },
+      { shar:false,
+        liked:false,
+        article: 'article2',
+        username: "another user",
+        profile: 'profile2',
+        currentdate,
+        timeread: "2 min",
+        title: 'Another fascinating article title',
+        introduction: 'This is the introduction to another fascinating article...',
+        views: 150,
+        comment: 10,
+        likes: 25
+      },
+      {shar:false,
+        liked:false,
+        article: 'article3',
+        username: "user three",
+        profile: 'profile3',
+        currentdate,
+        timeread: "3 min",
+        title: 'The Wonders of Modern Architecture',
+        introduction: 'An insight into the modern architectural marvels...',
+        views: 300,
+        comment: 15,
+        likes: 40
+      },
+      {shar:false,
+        liked:false,
+        article: 'article4',
+        username: "user four",
+        profile: 'profile4',
+        currentdate,
+        timeread: "4 min",
+        title: 'Understanding Quantum Computing',
+        introduction: 'A deep dive into the complexities of quantum computing...',
+        views: 400,
+        comment: 25,
+        likes: 50
+      },
+      {shar:false,
+        liked:false,
+        article: 'article5',
+        username: "user five",
+        profile: 'profile5',
+        currentdate,
+        timeread: "5 min",
+        title: 'Advancements in Artificial Intelligence',
+        introduction: 'Exploring the recent advancements in AI technology...',
+        views: 500,
+        comment: 30,
+        likes: 60
+      },
+      {shar:false,
+        liked:false,
+        article: 'article6',
+        username: "user six",
+        profile: 'profile6',
+        currentdate,
+        timeread: "6 min",
+        title: 'The Future of Space Exploration',
+        introduction: 'Looking ahead to the future of space travel and exploration...',
+        views: 600,
+        comment: 35,
+        likes: 70
+      }
+    ]
+  }
+},
    methods: {
     toggleSearch() {
       this.oui = !this.oui;
     },
-    share(){
-       this.shar= !this.shar;
+    share(index){
+       this.articles[index].shar= !this.articles[index].shar;
     },
-    like(){
-      if(this.liked){
-        this.likes +=1;
+    like(index){
+      if(this.articles[index].liked){
+        this.articles[index].likes ++;
       }else{
-        this.likes -=1;
+        this.articles[index].likes --;
       }
-    this.liked = !this.liked;
+    this.articles[index].liked = !this.articles[index].liked;
     }
   }
   }
@@ -134,6 +204,7 @@ input[type=text]{
   height: 500px;
   margin-left: 15%;
   padding: 0%;
+  margin-bottom: 35px;
 }
 .unified-container >img{
   cursor: pointer;
