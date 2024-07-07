@@ -19,28 +19,23 @@
       <div @click="toggleSearch"><ion-icon name="close-outline"></ion-icon></div>
     </div>
   </div>
+  <div class="login">
+    Log in / Sign up
+  </div>
   </form>
-  <section v-for="(article,index) in articles" :key="index" class="unified-container">
-  <img :src="article2" alt="article"  width="50%" height="100%" /> 
+  <section class="unified-container">
   <article class="content">
     <div class="info">
-    <div class="profile">
     <img :src="profile" alt="profile"/>
-    </div>
-    <div class="info1">
-    <p class="name">{{ article.username }}</p><span id="dots" @click="share(index)"><ion-icon name="ellipsis-vertical"></ion-icon></span>
-    <p class="date" >{{ article.currentdate }} . {{article.timeread}} </p> 
-    </div>
+    <p class="name">{{ article.username }} .</p><span id="dots" @click="share(index)"><ion-icon name="ellipsis-vertical"></ion-icon></span>
+    <p class="date" >{{ article.currentdate }} . {{article.timeread}} read </p>
     </div>
     <div class="share" v-show="article.shar">
       <ion-icon name="arrow-redo-outline"></ion-icon>
       <input type="submit" value="Share Post">
     </div>
-     <router-link :to="{ path: '/blog/details/' + article.id }">
      <h1 class="title">  {{article.title}}    </h1>
     <p class="introduction">{{article.introduction}}</p>
-    </router-link>
-
     <div class="footer">
       <hr>
       <div class="interaction">
@@ -49,10 +44,6 @@
     </div>
   </article>
   </section>
-  <div class="contact">
-    <div><ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-    Contact Us</div>
-  </div>
 </template>
 
 <script>
@@ -61,100 +52,120 @@ import profile from '@/assets/profile1.jpg';
 import article2 from '@/assets/article2.jpg';
 export default {
   data() {
-    const now = new Date();
-    const currentdate= now.toLocaleDateString();
-  return {
-    oui:false,
-    isHovered:false,
-    profile,
-    article1,
-    article2,
-    articles: [
-      { id:1,
+    return {
+      article: null,
+      article1,
+      profile,
+      article2,
+      oui:false,
+    isHovered:false
+    };
+  },
+  created() {
+    const articleId = this.$route.params.id; // Récupère l'ID de l'article depuis l'URL
+
+    const currentdate = new Date().toLocaleDateString(); // Définit une date actuelle
+
+    const articles = [
+      {
+        id: 1,
+        details: 'Here are more details about the first blog post...',
         shar:false,
         liked:false,
         username: "khalid kidarine",
         currentdate,
-        timeread: "1 min",
+        timeread: "1 min ",
         title: 'Exploring the Multilayered Surface Finishing of Futuristic "Obsidian" RocksExploring the Multilayered Surface Finishing of Futuristic "Obsidian" Rocks',
         introduction: 'Take an up-close look at the surface finishing of the futuristic "Obsidian," achieved through multiple layers of paint with varying...',
         views: 200,
         comment: 20,
         likes: 34
       },
-      { id:2,
-        shar:false,
-        liked:false,
+      {
+        id: 2,
+        shar: false,
+        liked: false,
         article: 'article2',
-        username: "another user",
+        username: "user two",
         profile: 'profile2',
-        currentdate,
+        currentdate: currentdate,
         timeread: "2 min",
         title: 'Another fascinating article title',
         introduction: 'This is the introduction to another fascinating article...',
-        views: 150,
+        details: 'Here are more details about the second blog post...',
+        views: 200,
         comment: 10,
-        likes: 25
+        likes: 30
       },
-      { id:2,
-        shar:false,
-        liked:false,
+      {
+        id: 3,
+        shar: false,
+        liked: false,
         article: 'article3',
         username: "user three",
         profile: 'profile3',
-        currentdate,
+        currentdate: currentdate,
         timeread: "3 min",
         title: 'The Wonders of Modern Architecture',
         introduction: 'An insight into the modern architectural marvels...',
+        details: 'Here are more details about the third blog post...',
         views: 300,
         comment: 15,
         likes: 40
       },
-      { id:4,
-        shar:false,
-        liked:false,
+      {
+        id: 4,
+        shar: false,
+        liked: false,
         article: 'article4',
         username: "user four",
         profile: 'profile4',
-        currentdate,
+        currentdate: currentdate,
         timeread: "4 min",
         title: 'Understanding Quantum Computing',
         introduction: 'A deep dive into the complexities of quantum computing...',
+        details: 'Here are more details about the fourth blog post...',
         views: 400,
         comment: 25,
         likes: 50
       },
-      { id:5,
-        shar:false,
-        liked:false,
+      {
+        id: 5,
+        shar: false,
+        liked: false,
         article: 'article5',
         username: "user five",
         profile: 'profile5',
-        currentdate,
+        currentdate: currentdate,
         timeread: "5 min",
         title: 'Advancements in Artificial Intelligence',
         introduction: 'Exploring the recent advancements in AI technology...',
+        details: 'Here are more details about the fifth blog post...',
         views: 500,
         comment: 30,
         likes: 60
       },
-      { id:6,
-        shar:false,
-        liked:false,
+      {
+        id: 6,
+        shar: false,
+        liked: false,
         article: 'article6',
         username: "user six",
         profile: 'profile6',
-        currentdate,
+        currentdate: currentdate,
         timeread: "6 min",
         title: 'The Future of Space Exploration',
         introduction: 'Looking ahead to the future of space travel and exploration...',
+        details: 'Here are more details about the sixth blog post...',
         views: 600,
         comment: 35,
         likes: 70
       }
-    ]
-  }
-},
+    ];
+
+    this.article = articles.find(article => article.id == articleId);
+  },
+  
    methods: {
     toggleSearch() {
       this.oui = !this.oui;
@@ -171,13 +182,9 @@ export default {
     this.articles[index].liked = !this.articles[index].liked;
     }
   }
-  }
+};
 </script>
-
 <style scoped>
-:root {
-  --hovered-color: rgb(23, 179, 153);
-}
 
 form {
   display: flex;
@@ -198,7 +205,11 @@ form > div:hover,.name:hover,#dots:hover,
   cursor: pointer;
   color: rgb(23, 179, 153)
 }
-
+.login{
+  color: rgb(78, 78, 204);
+  border: 1px solid rgb(78, 78, 204);
+  padding: 1% 3%;
+}
 .search-container{
     display: flex;
     flex-direction: row;
@@ -213,17 +224,14 @@ input[type=text]{
   border: 1px solid gray;
   display: flex;
   width: 70%;
-  height: 500px;
   margin-left: 15%;
-  padding: 0%;
+  padding: 3%;
   margin-bottom: 35px;
-  margin-top: 3%;
+  margin-top:3% ;
+  padding-bottom:5% ;
 }
 .unified-container >img{
   cursor: pointer;
-}
-.article{
-  float: right;
 }
 .profile{
   border: 5px solid #fff;
@@ -242,10 +250,11 @@ input[type=text]{
   height: 100%;
 }
 .content{
-  width: 50%;
+  width: 100%;
   padding-left: 25px;
   padding-top: 10px;
   position: relative;
+  background-color: aqua;
 }
 .info{
   display: flex;
@@ -253,19 +262,8 @@ input[type=text]{
   width: 97%;
   height: 50px;
 }
-.info1{
-  width: 80%;
-  height: 100%;
-  margin-left:5px ;
-  margin-top: -15px;
-}
 .name{
   width: 30%;
-}
-
-#dots{
-  float: right;
-  margin-top:-10px ;
 }
 .share{
   width: 35%;
@@ -345,3 +343,4 @@ input[type=text]{
 }
 
 </style>
+

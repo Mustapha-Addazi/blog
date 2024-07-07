@@ -19,6 +19,7 @@ export default {
 form{
     display: flex;
     flex-direction: column;
+    margin-top: 5%;
 }
 input{
 padding: 2px;
