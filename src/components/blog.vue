@@ -180,13 +180,12 @@ export default {
 }
 
 form {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
   width: 80%; 
   height: 50px;
   padding: 5px;
-  align-items: center;
   margin-left: 10%; 
   transition: cursor 0.3s;
   cursor: default;
